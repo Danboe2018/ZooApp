@@ -48,7 +48,17 @@ class MainActivity : AppCompatActivity() {
         tvListAnimal.adapter = adapter
     }
 
-    class AnimalsAdapter : BaseAdapter {
+    fun delete(index: Int){
+        listOfAnimals.removeAt(index)
+        adapter!!.notifyDataSetChanged()
+    }
+
+    fun add(index: Int){
+        listOfAnimals.add(listOfAnimals[index])
+        adapter!!.notifyDataSetChanged()
+    }
+
+    inner class AnimalsAdapter : BaseAdapter {
         var listOfAnimals = ArrayList<Animal>()
         var context: Context? = null
 
@@ -67,6 +77,7 @@ class MainActivity : AppCompatActivity() {
                 myView.tvDesc.text = animal.desc!!
                 myView.ivAnimalImage.setImageResource(animal.image!!)
                 myView.ivAnimalImage.setOnClickListener {
+//                    add(index)
                     val intent = Intent(context, AnimalInfo::class.java)
                     intent.putExtra("name", animal.name!!)
                     intent.putExtra("desc", animal.desc!!)
@@ -82,6 +93,7 @@ class MainActivity : AppCompatActivity() {
                 myView.tvDesc.text = animal.desc!!
                 myView.ivAnimalImage.setImageResource(animal.image!!)
                 myView.ivAnimalImage.setOnClickListener {
+//                    add(index)
                     val intent = Intent(context, AnimalInfo::class.java)
                     intent.putExtra("name", animal.name!!)
                     intent.putExtra("desc", animal.desc!!)
