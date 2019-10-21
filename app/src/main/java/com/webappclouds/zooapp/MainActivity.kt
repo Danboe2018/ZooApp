@@ -1,6 +1,7 @@
 package com.webappclouds.zooapp
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -58,13 +59,20 @@ class MainActivity : AppCompatActivity() {
 
         override fun getView(index: Int, p1: View?, p2: ViewGroup?): View {
             val animal = listOfAnimals[index]
-            if(animal.isKiller == true){
+            if (animal.isKiller == true) {
                 var inflator =
                     context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
                 var myView = inflator.inflate(R.layout.animal_killer_ticket, null)
                 myView.tvName.text = animal.name!!
                 myView.tvDesc.text = animal.desc!!
                 myView.ivAnimalImage.setImageResource(animal.image!!)
+                myView.ivAnimalImage.setOnClickListener {
+                    val intent = Intent(context, AnimalInfo::class.java)
+                    intent.putExtra("name", animal.name!!)
+                    intent.putExtra("desc", animal.desc!!)
+                    intent.putExtra("image", animal.image!!)
+                    context!!.startActivity(intent)
+                }
                 return myView
             } else {
                 var inflator =
@@ -73,6 +81,13 @@ class MainActivity : AppCompatActivity() {
                 myView.tvName.text = animal.name!!
                 myView.tvDesc.text = animal.desc!!
                 myView.ivAnimalImage.setImageResource(animal.image!!)
+                myView.ivAnimalImage.setOnClickListener {
+                    val intent = Intent(context, AnimalInfo::class.java)
+                    intent.putExtra("name", animal.name!!)
+                    intent.putExtra("desc", animal.desc!!)
+                    intent.putExtra("image", animal.image!!)
+                    context!!.startActivity(intent)
+                }
                 return myView
             }
         }
@@ -88,6 +103,5 @@ class MainActivity : AppCompatActivity() {
         override fun getCount(): Int {
             return listOfAnimals.size
         }
-
     }
 }
