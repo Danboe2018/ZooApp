@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
 
     class AnimalsAdapter : BaseAdapter {
         var listOfAnimals = ArrayList<Animal>()
-        var context:Context?=null
+        var context: Context? = null
 
         constructor(context: Context, listOfAnimals: ArrayList<Animal>) : super() {
             this.listOfAnimals = listOfAnimals
@@ -58,12 +58,23 @@ class MainActivity : AppCompatActivity() {
 
         override fun getView(index: Int, p1: View?, p2: ViewGroup?): View {
             val animal = listOfAnimals[index]
-            var inflator = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            var myView = inflator.inflate(R.layout.animal_ticket, null)
-            myView.tvName.text = animal.name!!
-            myView.tvDesc.text = animal.desc!!
-            myView.ivAnimalImage.setImageResource(animal.image!!)
-            return myView
+            if(animal.isKiller == true){
+                var inflator =
+                    context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+                var myView = inflator.inflate(R.layout.animal_killer_ticket, null)
+                myView.tvName.text = animal.name!!
+                myView.tvDesc.text = animal.desc!!
+                myView.ivAnimalImage.setImageResource(animal.image!!)
+                return myView
+            } else {
+                var inflator =
+                    context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+                var myView = inflator.inflate(R.layout.animal_ticket, null)
+                myView.tvName.text = animal.name!!
+                myView.tvDesc.text = animal.desc!!
+                myView.ivAnimalImage.setImageResource(animal.image!!)
+                return myView
+            }
         }
 
         override fun getItem(p0: Int): Any {
